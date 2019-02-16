@@ -80,8 +80,11 @@ export class NgxsFeatureModule {
 
     internalStateOperations.setStateToTheCurrentWithNew(results);
 
+    // array of new states names
+    const newStates: string[] = results.states.map(state => state.name);
+
     // dispatch the update action and invoke init and bootstrap functions after
-    lifecycleStateManager.ngxsBootstrap(new UpdateState(), results);
+    lifecycleStateManager.ngxsBootstrap(new UpdateState(newStates), results);
   }
 }
 

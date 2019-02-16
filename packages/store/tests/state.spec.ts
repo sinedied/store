@@ -156,8 +156,8 @@ describe('State', () => {
         }
 
         @Action(UpdateState)
-        updateState(ctx: StateContext<string[]>) {
-          ctx.setState([...ctx.getState(), 'updateState']);
+        updateState(ctx: StateContext<string[]>, action: UpdateState) {
+          ctx.setState([...ctx.getState(), 'updateState', ...(action.states as string[])]);
         }
       }
 
@@ -167,7 +167,7 @@ describe('State', () => {
 
       TestBed.get(FooState);
 
-      expect(TestBed.get(Store).snapshot().foo).toEqual(['updateState', 'onInit']);
+      expect(TestBed.get(Store).snapshot().foo).toEqual(['updateState', 'foo', 'onInit']);
     });
   });
 
