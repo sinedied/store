@@ -4,6 +4,7 @@ import {
   Optional,
   Inject,
   InjectionToken,
+  Type,
   APP_BOOTSTRAP_LISTENER
 } from '@angular/core';
 
@@ -20,6 +21,7 @@ import { InternalDispatcher, InternalDispatchedActionResults } from './internal/
 import { InternalStateOperations } from './internal/state-operations';
 import { Store } from './store';
 import { SelectFactory } from './decorators/select';
+import { SelectorFactory } from './decorators/selector';
 import { StateStream } from './internal/state-stream';
 import { PluginManager } from './plugin-manager';
 import { InitState, UpdateState } from './actions/actions';
@@ -38,6 +40,7 @@ export class NgxsRootModule {
     internalStateOperations: InternalStateOperations,
     store: Store,
     select: SelectFactory,
+    selector: SelectorFactory,
     @Optional()
     @Inject(ROOT_STATE_TOKEN)
     states: StateClass[] = [],
@@ -85,6 +88,14 @@ export class NgxsFeatureModule {
   }
 }
 
+// type RecursivePartial<T> = {
+//   [P in keyof T]?: T[P] extends Type<infer U>
+//     ? Type<U>
+//     : T[P] extends object
+//     ? RecursivePartial<T[P]>
+//     : T[P]
+// };
+
 export type ModuleOptions = Partial<NgxsConfig>;
 
 export function ngxsConfigFactory(options: ModuleOptions): NgxsConfig {
@@ -124,6 +135,7 @@ export class NgxsModule {
         Store,
         StateStream,
         SelectFactory,
+        SelectorFactory,
         PluginManager,
         ...states,
         {

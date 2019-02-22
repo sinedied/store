@@ -38,7 +38,7 @@ describe('Selector', () => {
       return foo + myState2.bar;
     }
 
-    @Selector([MyState2.foo], true)
+    @Selector([MyState2.foo])
     static fooOnly(foo: any) {
       return foo;
     }
@@ -103,9 +103,13 @@ describe('Selector', () => {
       expect(slice).toBe('HelloHelloWorld');
     }));
 
-    it('should select only specified', async(() => {
+    it('should select only specified when injectSelectorContainer is false', async(() => {
       TestBed.configureTestingModule({
-        imports: [NgxsModule.forRoot([MyState, MyState2])]
+        imports: [
+          NgxsModule.forRoot([MyState, MyState2], {
+            // compatibility: { injectSelectorContainer: false }
+          })
+        ]
       });
 
       const store: Store = TestBed.get(Store);

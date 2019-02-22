@@ -32,6 +32,11 @@ export class NgxsConfig {
      * (default: false)
      */
     strictContentSecurityPolicy: boolean;
+    /**
+     * Inject the container state class as the first parameter of a `@Selector` with parameters.
+     * (default: true)
+     */
+    injectSelectorContainer: boolean;
   };
   /**
    * Determines the execution context to perform async operations inside. An implementation can be
@@ -54,7 +59,8 @@ export class NgxsConfig {
 
   constructor() {
     this.compatibility = {
-      strictContentSecurityPolicy: false
+      strictContentSecurityPolicy: false,
+      injectSelectorContainer: true
     };
     this.executionStrategy = DispatchOutsideZoneNgxsExecutionStrategy;
   }

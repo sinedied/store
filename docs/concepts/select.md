@@ -272,14 +272,17 @@ they were passed in the signature.
 By default the state class's state is always injected first, causing your selector
 value to be updated on each state's change.
 
-You can change this behavior passing `true` as the second selector parameter, to
-only inject the selectors you need and therefore limit updates.
+You can change this behavior by changing the
+[compatibility option](../advanced/options.md) `injectSelectorContainer` to `false`,
+to only inject the selectors you need and therefore limit updates.
+
+Note that this will be the default option starting from v4.
 
 ```TS
 @State<string[]>({ ... })
 export class ZooState {
 
-  @Selector([ZooState.pandas('baby')], true)
+  @Selector([ZooState.pandas('baby')])
   static babyPandasCounter(babyPandas: string[]) {
     return babyPandas.length;
   }
