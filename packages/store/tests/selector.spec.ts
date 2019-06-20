@@ -4,6 +4,7 @@ import { createSelector } from '../src/utils/selector-utils';
 import { Store } from '../src/store';
 import { NgxsModule } from '../src/module';
 import { Selector } from '../src/decorators/selector';
+import { Selector as SelectorNext } from '../next/src/selector';
 
 describe('Selector', () => {
   @State<any>({
@@ -38,7 +39,7 @@ describe('Selector', () => {
       return foo + myState2.bar;
     }
 
-    @Selector([MyState2.foo], true)
+    @SelectorNext([MyState2.foo])
     static fooOnly(foo: any) {
       return foo;
     }
